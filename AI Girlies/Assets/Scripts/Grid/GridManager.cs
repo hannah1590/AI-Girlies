@@ -14,9 +14,10 @@ public class GridManager : MonoBehaviour
 
     private void Awake()
     {
-        InitalizeGrid();
+        InitalizeGrid(Vector2.zero);
+        InitalizeGrid(new Vector2(20, 20));
     }
-    public void InitalizeGrid()
+    public void InitalizeGrid(Vector2 pos)
     {
         int p = 0;
 
@@ -29,6 +30,7 @@ public class GridManager : MonoBehaviour
                 GridTile tile = Instantiate(tilePrefab, transform);
                 Vector2 tilePos;
                 tilePos = new Vector2(i + (padding * i), j + (padding * j));
+                tilePos += pos;
           
 
                 tile.transform.localPosition = tilePos;
