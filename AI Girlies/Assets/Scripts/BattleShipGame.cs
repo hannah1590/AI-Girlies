@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BattleShipGame : MonoBehaviour
 {
+    [SerializeField] GridManager gridManager;
+
+    public GridTile[] playerGrid;
+    public GridTile[] aiGrid;
     enum Turn
     {
         SETUP,
@@ -11,6 +15,11 @@ public class BattleShipGame : MonoBehaviour
         AI
     }
 
+    private void Awake()
+    {
+        playerGrid = gridManager.InitalizeGrid(Vector2.zero);
+        aiGrid = gridManager.InitalizeGrid(new Vector2(0, 20));
+    }
 
     // Start is called before the first frame update
     void Start()

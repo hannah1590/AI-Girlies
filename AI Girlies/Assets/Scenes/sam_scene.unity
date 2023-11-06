@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 157256772}
   - component: {fileID: 157256773}
+  - component: {fileID: 157256774}
   m_Layer: 0
   m_Name: gridManager
   m_TagString: Untagged
@@ -164,12 +165,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 157256770}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88ce53d65bed7b4a996e144dece8387, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridManager: {fileID: 157256774}
+  playerGrid: []
+  aiGrid: []
+--- !u!114 &157256774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157256770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfc9590bd21e06e40a7cf193f48c04b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   numRows: 10
   numColumns: 10
-  padding: 0.5
+  padding: 0.4
   tilePrefab: {fileID: 4765765331498422372, guid: cf55d48065484cd43bb04c6e472ddefa, type: 3}
   tiles: []
 --- !u!1 &348658848

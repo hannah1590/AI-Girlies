@@ -12,12 +12,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GridTile tilePrefab;
     public GridTile[] tiles;
 
-    private void Awake()
-    {
-        InitalizeGrid(Vector2.zero);
-        InitalizeGrid(new Vector2(20, 20));
-    }
-    public void InitalizeGrid(Vector2 pos)
+    public GridTile[] InitalizeGrid(Vector2 pos)
     {
         int p = 0;
 
@@ -39,5 +34,8 @@ public class GridManager : MonoBehaviour
                 tiles[j * numColumns + i] = tile;
             }
         }
+        return tiles;
     }
+    
+
 }
