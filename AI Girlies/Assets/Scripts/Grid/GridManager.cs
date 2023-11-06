@@ -11,7 +11,6 @@ public class GridManager : MonoBehaviour
 
     [SerializeField] private GridTile tilePrefab;
     public GridTile[] tiles;
-
     public GridTile[] InitalizeGrid(Vector2 pos)
     {
         int p = 0;
@@ -36,6 +35,5 @@ public class GridManager : MonoBehaviour
         }
         return tiles;
     }
-    
-
+   
 }
