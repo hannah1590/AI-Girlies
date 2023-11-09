@@ -7,7 +7,7 @@ public class GridManager : MonoBehaviour
     public int numRows = 10;
     public int numColumns = 10;
 
-    public float padding = 2f;
+    public float padding = 0.2f;
 
     [SerializeField] private GridTile tilePrefab;
     public GridTile[] tiles;

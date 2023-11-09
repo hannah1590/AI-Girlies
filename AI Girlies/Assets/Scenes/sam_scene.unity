@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 157256772}
   - component: {fileID: 157256773}
   - component: {fileID: 157256774}
+  - component: {fileID: 157256775}
   m_Layer: 0
   m_Name: gridManager
   m_TagString: Untagged
@@ -169,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridManager: {fileID: 157256774}
-  playerGrid: []
+  aiManager: {fileID: 0}
   aiGrid: []
 --- !u!114 &157256774
 MonoBehaviour:
@@ -185,9 +186,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numRows: 10
   numColumns: 10
-  padding: 0.4
+  padding: 0.2
   tilePrefab: {fileID: 4765765331498422372, guid: cf55d48065484cd43bb04c6e472ddefa, type: 3}
   tiles: []
+--- !u!114 &157256775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157256770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30972976204a97240ad98a97d619f258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &348658848
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +237,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
