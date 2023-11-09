@@ -7,6 +7,7 @@ using UnityEngine;
 public class AIManager : MonoBehaviour
 {
     [SerializeField] private GridManager gridManager;
+    [SerializeField] private BattleShipGame aiGrid;
 
     private int rows;
     private int columns;
@@ -25,7 +26,7 @@ public class AIManager : MonoBehaviour
 
     private void CreateBoat(int size)
     {
-        /*
+        
         int loc;
         int dir = Random.Range(0, 4); // 0 = North, 1 = East, 2 = South, 3 = West
         bool dirGood = false;
@@ -37,13 +38,11 @@ public class AIManager : MonoBehaviour
         // gets new loc if it is not available or all directions are blocked
         do
         {
-            loc = Random.Range(0, rows * columns); Debug.Log(loc);
-            currentRow = gridManager.tiles[loc].gridCords.x;
-            currentCol = gridManager.tiles[loc].gridCords.y;
+            loc = Random.Range(0, rows * columns);
+            currentRow = aiGrid.aiGrid[loc].gridCords.x;
+            currentCol = aiGrid.aiGrid[loc].gridCords.y;
 
-           
-
-            if (gridManager.tiles[loc].getStatus() == Status.EMPTY)
+            if (aiGrid.aiGrid[loc].getStatus() == Status.EMPTY)
             {
                 do
                 {
@@ -62,7 +61,7 @@ public class AIManager : MonoBehaviour
                             {
                                 if(currentRow + i < rows)
                                 {
-                                    if(gridManager.tiles[(currentRow + i) * rows + currentCol].getStatus() == Status.EMPTY)
+                                    if(aiGrid.aiGrid[(currentRow + i) * rows + currentCol].getStatus() == Status.EMPTY)
                                     {
                                         count++;
                                     }
@@ -74,7 +73,7 @@ public class AIManager : MonoBehaviour
                             {
                                 if (currentCol + i < columns)
                                 {
-                                    if (gridManager.tiles[currentRow * rows + (currentCol + i)].getStatus() == Status.EMPTY)
+                                    if (aiGrid.aiGrid[currentRow * rows + (currentCol + i)].getStatus() == Status.EMPTY)
                                     {
                                         count++;
                                     }
@@ -86,7 +85,7 @@ public class AIManager : MonoBehaviour
                             {
                                 if (currentRow - i >= 0)
                                 {
-                                    if (gridManager.tiles[(currentRow - i) * rows + currentCol].getStatus() == Status.EMPTY)
+                                    if (aiGrid.aiGrid[(currentRow - i) * rows + currentCol].getStatus() == Status.EMPTY)
                                     {
                                         count++;
                                     }
@@ -98,7 +97,7 @@ public class AIManager : MonoBehaviour
                             {
                                 if (currentCol - i >= 0)
                                 {
-                                    if (gridManager.tiles[currentRow * rows + (currentCol - i)].getStatus() == Status.EMPTY)
+                                    if (aiGrid.aiGrid[currentRow * rows + (currentCol - i)].getStatus() == Status.EMPTY)
                                     {
                                         count++;
                                     }
@@ -126,19 +125,18 @@ public class AIManager : MonoBehaviour
             switch (dir)
             {
                 case 0:
-                    gridManager.tiles[(currentRow + i) * rows + currentCol].SetShip();
+                    aiGrid.aiGrid[(currentRow + i) * rows + currentCol].SetShip();
                     break;
                 case 1:
-                    gridManager.tiles[currentRow * rows + (currentCol + i)].SetShip();
+                    aiGrid.aiGrid[currentRow * rows + (currentCol + i)].SetShip();
                     break;
                 case 2:
-                    gridManager.tiles[(currentRow - i) * rows + currentCol].SetShip();
+                    aiGrid.aiGrid[(currentRow - i) * rows + currentCol].SetShip();
                     break;
                 case 3:
-                    gridManager.tiles[currentRow * rows + (currentCol - i)].SetShip();
+                    aiGrid.aiGrid[currentRow * rows + (currentCol - i)].SetShip();
                     break;
             }
         }
-        */
     }
 }

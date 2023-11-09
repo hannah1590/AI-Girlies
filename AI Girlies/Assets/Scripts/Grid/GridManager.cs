@@ -13,12 +13,9 @@ public class GridManager : MonoBehaviour
     public GridTile[] tiles;
     public GridTile[] InitalizeGrid(Vector2 pos)
     {
-        int p = 0;
-
         tiles = new GridTile[numRows * numColumns];
         for (int i = 0; i < numRows; i++)
         {
-            p = 0;
             for(int j = 0; j < numColumns; j++)
             {
                 GridTile tile = Instantiate(tilePrefab, transform);
@@ -28,8 +25,8 @@ public class GridManager : MonoBehaviour
           
 
                 tile.transform.localPosition = tilePos;
-                tile.name = $"Tile_{p + (j % 2)}_{j}";
-                tile.gridCords = new Vector2Int(p + (j % 2), j);
+                tile.name = $"Tile_{i}_{j}";
+                tile.gridCords = new Vector2Int(i, j);
                 tiles[j * numColumns + i] = tile;
             }
         }

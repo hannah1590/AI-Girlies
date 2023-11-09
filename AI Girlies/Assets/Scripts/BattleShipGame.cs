@@ -5,6 +5,7 @@ using UnityEngine;
 public class BattleShipGame : MonoBehaviour
 {
     [SerializeField] GridManager gridManager;
+    [SerializeField] AIManager aiManager;
 
     public GridTile[] playerGrid;
     public GridTile[] aiGrid;
@@ -19,6 +20,8 @@ public class BattleShipGame : MonoBehaviour
     {
         playerGrid = gridManager.InitalizeGrid(Vector2.zero);
         aiGrid = gridManager.InitalizeGrid(new Vector2(0, 20));
+
+        aiManager.MakeBoard();
     }
 
     // Start is called before the first frame update
