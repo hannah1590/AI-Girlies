@@ -18,10 +18,18 @@ public class GridTile : MonoBehaviour
     private Color shipColor = new Color(56f / 255, 93f / 255, 255f / 255);
     private Color shipHover = new Color(44f / 255, 73f / 255, 199f / 255);
 
-    private Status status = Status.EMPTY;
+    private Color hitColor = new Color(219f / 255, 11f / 255, 25f / 255, 255f / 255);
+    private Color missColor = new Color(125f / 255, 125f / 255, 125f / 255, 255f / 255);
+
+    [SerializeField] private Status status = Status.EMPTY;
+
+    public bool isHover = false;
 
     private void OnMouseOver()
     {
+        isHover = true;
+
+        /*
         if (currentColor == defaultColor) {
             SetColor(hoverColor);
             currentColor = hoverColor;
@@ -30,10 +38,13 @@ public class GridTile : MonoBehaviour
             SetColor(shipHover);
             currentColor = shipHover;
         }
+        */
     }
 
     private void OnMouseExit()
     {
+        isHover = false;
+        /*
         if (currentColor == hoverColor) {
             SetColor(defaultColor);
             currentColor = defaultColor; 
@@ -42,6 +53,7 @@ public class GridTile : MonoBehaviour
             SetColor(shipColor); 
             currentColor = shipColor; 
         }
+        */
     }
 
     private void Awake()
@@ -70,12 +82,12 @@ public class GridTile : MonoBehaviour
         if(t.getStatus() == Status.SHIP)
         {
             t.setStatus(Status.HIT);
-            t.SetColor(new Color(219, 11, 25, 255));
+            t.SetColor(hitColor);
         }
         else
         {
             t.setStatus(Status.MISS);
-            t.SetColor(new Color(125, 125, 125, 255));
+            t.SetColor(missColor);
         }
     }
 }

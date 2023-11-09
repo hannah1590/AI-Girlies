@@ -6,6 +6,7 @@ public class BattleShipGame : MonoBehaviour
 {
     [SerializeField] GridManager gridManager;
     [SerializeField] AIManager aiManager;
+    [SerializeField] PlayerTurn playerTurn;
 
     public GridTile[] playerGrid;
     public GridTile[] aiGrid;
@@ -33,7 +34,10 @@ public class BattleShipGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetMouseButtonDown(0))
+        {
+            playerTurn.Fire();
+        }
     }
 
     private void Setup()
