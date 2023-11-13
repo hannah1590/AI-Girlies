@@ -24,7 +24,12 @@ public class GridTile : MonoBehaviour
     [SerializeField] private Status status = Status.EMPTY;
 
     public bool isHover = false;
-
+    private void Start()
+    {
+        this.gameObject.tag = "Tile";
+        boxCollider.isTrigger = true;
+        gameObject.AddComponent<Rigidbody2D>().gravityScale = 0;
+    }
     private void OnMouseOver()
     {
         isHover = true;
