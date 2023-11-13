@@ -12,21 +12,26 @@ public class AIManager : MonoBehaviour
     private int rows;
     private int columns;
 
+    public List<Vector2> carrier5;
+    public List<Vector2> battleship4;
+    public List<Vector2> crusier3;
+    public List<Vector2> submarine3;
+    public List<Vector2> destroyer2;
+
     public void MakeBoard()
     {
         rows = gridManager.numRows;
         columns = gridManager.numColumns;
 
-        CreateBoat(5);
-        CreateBoat(4);
-        CreateBoat(3);
-        CreateBoat(3);
-        CreateBoat(2);
+        carrier5 = CreateBoat(5);
+        battleship4 = CreateBoat(4);
+        crusier3 = CreateBoat(3);
+        submarine3 = CreateBoat(3);
+        destroyer2 = CreateBoat(2);
     }
 
-    private void CreateBoat(int size)
+    private List<Vector2> CreateBoat(int size)
     {
-        
         int loc;
         int dir = Random.Range(0, 4); // 0 = North, 1 = East, 2 = South, 3 = West
         bool dirGood = false;
@@ -34,6 +39,8 @@ public class AIManager : MonoBehaviour
         int currentRow;
         int currentCol;
         int dirCount = 0;
+
+        List<Vector2> boat = new List<Vector2>();
 
         // gets new loc if it is not available or all directions are blocked
         do
@@ -57,7 +64,7 @@ public class AIManager : MonoBehaviour
                     switch (dir)
                     {
                         case 0:
-                            for(int i = 1; i <= size; i++)
+                            for(int i = 0; i < size; i++)
                             {
                                 if(currentRow + i < rows)
                                 {
@@ -69,7 +76,7 @@ public class AIManager : MonoBehaviour
                             }
                             break;
                         case 1:
-                            for (int i = 1; i <= size; i++)
+                            for (int i = 0; i < size; i++)
                             {
                                 if (currentCol + i < columns)
                                 {
@@ -81,7 +88,7 @@ public class AIManager : MonoBehaviour
                             }
                             break;
                         case 2:
-                            for (int i = 1; i <= size; i++)
+                            for (int i = 0; i < size; i++)
                             {
                                 if (currentRow - i >= 0)
                                 {
@@ -93,7 +100,7 @@ public class AIManager : MonoBehaviour
                             }
                             break;
                         case 3:
-                            for (int i = 1; i <= size; i++)
+                            for (int i = 0; i < size; i++)
                             {
                                 if (currentCol - i >= 0)
                                 {
@@ -110,18 +117,22 @@ public class AIManager : MonoBehaviour
                         dirGood = true;
                         locGood = true;
                     }
-                    // cycles through directions if current direction is not valid
-                    dir++;
-                    if (dir > 3)
-                        dir = 0;
-
+                    else
+                    {
+                        // cycles through directions if current direction is not valid
+                        dir++;
+                        dirCount++;
+                        if (dir > 3)
+                            dir = 0;
+                    }
                 } while (!dirGood);
             }
         } while (!locGood);
 
 
-        for (int i = 1; i <= size; i++)
+        for (int i = 0; i < size; i++)
         {
+            boat.Add(new Vector2(currentRow + i, currentCol + i));
             switch (dir)
             {
                 case 0:
@@ -138,5 +149,7 @@ public class AIManager : MonoBehaviour
                     break;
             }
         }
+
+        return boat;
     }
 }

@@ -11,6 +11,7 @@ public class PlayerTurn : MonoBehaviour
     private int rows;
     private int columns;
 
+    // Player checks on the selected tile whether there is a ship there or not
     public void Fire()
     {
         GridTile tile = GetSelectedTile();
@@ -20,6 +21,7 @@ public class PlayerTurn : MonoBehaviour
         }  
     }
 
+    // Gets tile currently being hovered over by mouse
     private GridTile GetSelectedTile()
     {
         rows = gridManager.numRows;

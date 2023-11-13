@@ -14,10 +14,10 @@ public class BattleShipGame : MonoBehaviour
 
     private void Awake()
     {
-        playerGrid = gridManager.InitalizeGrid(Vector2.zero);
-        aiGrid = gridManager.InitalizeGrid(new Vector2(0, 20));
+        playerGrid = gridManager.InitalizeGrid(Vector2.zero - new Vector2(7,15));
+        aiGrid = gridManager.InitalizeGrid(new Vector2(-7, 10));
 
-        //aiManager.MakeBoard();
+        aiManager.MakeBoard();
     }
 
     // Start is called before the first frame update
