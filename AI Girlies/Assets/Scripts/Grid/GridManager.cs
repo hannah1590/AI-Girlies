@@ -32,5 +32,4 @@ public class GridManager : MonoBehaviour
         }
         return tiles;
     }
-   
 }
