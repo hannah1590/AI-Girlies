@@ -132,19 +132,22 @@ public class AIManager : MonoBehaviour
 
         for (int i = 0; i < size; i++)
         {
-            boat.Add(new Vector2(currentRow + i, currentCol + i));
             switch (dir)
             {
                 case 0:
+                    boat.Add(new Vector2(currentCol, currentRow + i));
                     aiGrid.aiGrid[(currentRow + i) * rows + currentCol].SetShip();
                     break;
                 case 1:
+                    boat.Add(new Vector2(currentCol + i, currentRow));
                     aiGrid.aiGrid[currentRow * rows + (currentCol + i)].SetShip();
                     break;
                 case 2:
+                    boat.Add(new Vector2(currentCol, currentRow - i));
                     aiGrid.aiGrid[(currentRow - i) * rows + currentCol].SetShip();
                     break;
                 case 3:
+                    boat.Add(new Vector2(currentCol - i, currentRow));
                     aiGrid.aiGrid[currentRow * rows + (currentCol - i)].SetShip();
                     break;
             }
