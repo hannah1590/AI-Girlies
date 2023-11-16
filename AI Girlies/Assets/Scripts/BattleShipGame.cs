@@ -30,10 +30,12 @@ public class BattleShipGame : MonoBehaviour
 
         if (turn == Turn.PLAYER)
         {
+            playerTurn.Fire();
             turn = Turn.AI;
         }
         else if (turn == Turn.AI)
         {
+
             turn = Turn.PLAYER;
         }
     }
