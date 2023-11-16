@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class Mice : MonoBehaviour
@@ -28,14 +29,12 @@ public class Mice : MonoBehaviour
         gameObject.transform.position = worldPosition;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {   
         if(collision.gameObject.tag == "Tile")
         {
-            if(Input.GetMouseButtonDown(0))
+            if (Mouse.current.leftButton.isPressed)
             {
-                //Mouse.current
-                //Mouse.current
                 Debug.Log(collision.gameObject.name);
                 player.PlaceBoat(collision.gameObject.name);
             }
