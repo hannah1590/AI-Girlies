@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 157256774}
   - component: {fileID: 157256775}
   - component: {fileID: 157256776}
+  - component: {fileID: 157256777}
   m_Layer: 0
   m_Name: gridManager
   m_TagString: Untagged
@@ -223,6 +224,22 @@ MonoBehaviour:
   crusier3: []
   submarine3: []
   destroyer2: []
+--- !u!114 &157256777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157256770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6299e8b0585cf1847bd26f92674ebfd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridManager: {fileID: 157256774}
+  gameManager: {fileID: 157256773}
+  aiManager: {fileID: 157256776}
+  uiManager: {fileID: 0}
 --- !u!1 &348658848
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,7 +301,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 17.094944
+  orthographic size: 11.146311
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -309,7 +326,7 @@ Transform:
   m_GameObject: {fileID: 348658848}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.73, y: 4.86, z: -10}
+  m_LocalPosition: {x: 4.2, y: 3.4, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

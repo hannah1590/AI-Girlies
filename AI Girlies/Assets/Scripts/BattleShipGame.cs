@@ -20,21 +20,21 @@ public class BattleShipGame : MonoBehaviour
         aiManager.MakeBoard();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (turn == Turn.SETUP)
-        {
-
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
         if(turn == Turn.PLAYER && Input.GetMouseButtonDown(0))
         {
             playerTurn.Fire();
+        }
+
+        if (turn == Turn.PLAYER)
+        {
+            turn = Turn.AI;
+        }
+        else if (turn == Turn.AI)
+        {
+            turn = Turn.PLAYER;
         }
     }
 
