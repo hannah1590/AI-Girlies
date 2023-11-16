@@ -461,9 +461,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88ce53d65bed7b4a996e144dece8387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridManager: {fileID: 157256774}
-  aiManager: {fileID: 157256776}
-  playerTurn: {fileID: 0}
   aiGrid: []
 --- !u!114 &157256774
 MonoBehaviour:
@@ -507,8 +504,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29ec3869a6e0f244b7f05eb95a48150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridManager: {fileID: 157256774}
-  aiGrid: {fileID: 157256773}
   carrier5: []
   battleship4: []
   crusier3: []
@@ -721,7 +716,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 11.146311
+  orthographic size: 26.71098
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2141,6 +2136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85e8be9ae411eb443bb54e17906b2da1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridManager: {fileID: 157256774}
 --- !u!4 &2030309579
 Transform:
   m_ObjectHideFlags: 0
