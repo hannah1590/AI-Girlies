@@ -20,7 +20,10 @@ public class Player : MonoBehaviour
     private int shipIndex = 4;
     private int dirIndex = 0;
 
-  
+    private void Start()
+    {
+        gridManager = FindFirstObjectByType<GridManager>();
+    }
     public void Update()
     {
        
