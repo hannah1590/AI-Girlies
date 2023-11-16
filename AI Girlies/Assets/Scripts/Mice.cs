@@ -9,7 +9,8 @@ using UnityEngine.UIElements;
 public class Mice : MonoBehaviour
 {
     private Player player;
-
+    private bool isTriggered = false;
+    private string tileName;
     Vector3 mousePos;
     Vector3 worldPosition;
     private void Start()
@@ -27,17 +28,21 @@ public class Mice : MonoBehaviour
         mousePos.z = Camera.main.nearClipPlane;
         worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
         gameObject.transform.position = worldPosition;
+
+        if(isTriggered && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Debug.Log(tileName);
+            player.PlaceBoat(tileName);
+            isTriggered = false;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {   
         if(collision.gameObject.tag == "Tile")
         {
-            if (Mouse.current.leftButton.isPressed)
-            {
-                Debug.Log(collision.gameObject.name);
-                player.PlaceBoat(collision.gameObject.name);
-            }
+            isTriggered = true;
+            tileName = collision.gameObject.name;
         }    
     }
 }
