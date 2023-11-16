@@ -463,7 +463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridManager: {fileID: 157256774}
   aiManager: {fileID: 157256776}
-  playerTurn: {fileID: 157256777}
+  playerTurn: {fileID: 0}
   aiGrid: []
 --- !u!114 &157256774
 MonoBehaviour:
@@ -526,10 +526,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6299e8b0585cf1847bd26f92674ebfd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridManager: {fileID: 157256774}
-  gameManager: {fileID: 157256773}
-  aiManager: {fileID: 157256776}
-  uiManager: {fileID: 25903088}
 --- !u!1 &242006496
 GameObject:
   m_ObjectHideFlags: 0

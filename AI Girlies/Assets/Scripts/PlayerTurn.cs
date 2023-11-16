@@ -5,10 +5,10 @@ using UnityEngine.Assertions;
 
 public class PlayerTurn : MonoBehaviour
 {
-    [SerializeField] private GridManager gridManager;
-    [SerializeField] private BattleShipGame gameManager;
-    [SerializeField] private AIManager aiManager;
-    [SerializeField] private UIManager uiManager;
+    private GridManager gridManager;
+    private BattleShipGame gameManager;
+    private AIManager aiManager;
+    private UIManager uiManager;
 
     private int rows;
     private int columns;
@@ -19,7 +19,13 @@ public class PlayerTurn : MonoBehaviour
     private int submarine3Shot = 0;
     private int destroyer2Shot = 0;
 
-
+    private void Start()
+    {
+        gridManager = FindFirstObjectByType<GridManager>();
+        gameManager = FindFirstObjectByType<BattleShipGame>();
+        aiManager = FindFirstObjectByType<AIManager>();
+        uiManager = FindFirstObjectByType<UIManager>();
+    }
     // Player checks on the selected tile whether there is a ship there or not
     public void Fire()
     {

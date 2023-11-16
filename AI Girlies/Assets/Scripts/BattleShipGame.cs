@@ -14,6 +14,10 @@ public class BattleShipGame : MonoBehaviour
 
     private void Awake()
     {
+        gridManager = FindFirstObjectByType<GridManager>();
+        aiManager = FindFirstObjectByType<AIManager>();
+        playerTurn = FindFirstObjectByType<PlayerTurn>();
+
         playerGrid = gridManager.InitalizeGrid(Vector2.zero - new Vector2(7,15));
         aiGrid = gridManager.InitalizeGrid(new Vector2(-7, 10));
 
