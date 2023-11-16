@@ -12,6 +12,7 @@ public class GridTile : MonoBehaviour
     private BoxCollider2D boxCollider;
 
     private Color currentColor;
+    private Color oldColor;
 
     private Color defaultColor = new Color(70f / 255, 80f / 255, 110f / 255);
     private Color hoverColor = new Color(49f / 255, 54f / 255, 69f / 255);
@@ -21,46 +22,50 @@ public class GridTile : MonoBehaviour
     private Color hitColor = new Color(219f / 255, 11f / 255, 25f / 255, 255f / 255);
     private Color missColor = new Color(125f / 255, 125f / 255, 125f / 255, 255f / 255);
 
+    public bool isHover;
     [SerializeField] private Status status = Status.EMPTY;
 
-    public bool isHover = false;
     private void Start()
     {
         this.gameObject.tag = "Tile";
         boxCollider.isTrigger = true;
         gameObject.AddComponent<Rigidbody2D>().gravityScale = 0;
     }
-    private void OnMouseOver()
-    {
-        isHover = true;
 
-        /*
-        if (currentColor == defaultColor) {
-            SetColor(hoverColor);
-            currentColor = hoverColor;
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "MousePosition")
+        {
+            isHover = true;
+            if (currentColor == defaultColor)
+            {
+                oldColor = currentColor;
+                SetColor(hoverColor);
+                currentColor = hoverColor;
+            }
+            if (currentColor == shipColor)
+            {
+                oldColor = currentColor;
+                SetColor(shipHover);
+                currentColor = shipHover;
+            }
         }
-        if (currentColor == shipColor) { 
-            SetColor(shipHover);
-            currentColor = shipHover;
-        }
-        */
     }
 
-    private void OnMouseExit()
+    private void OnTriggerExit2D(Collider2D collision)
     {
         isHover = false;
-        /*
-        if (currentColor == hoverColor) {
-            SetColor(defaultColor);
-            currentColor = defaultColor; 
+        if (currentColor == hoverColor)
+        {
+            SetColor(oldColor);
+            currentColor = oldColor;
         }
-        if (currentColor == shipHover) {
-            SetColor(shipColor); 
-            currentColor = shipColor; 
+        if (currentColor == shipHover)
+        {
+            SetColor(oldColor);
+            currentColor = oldColor;
         }
-        */
     }
-
     private void Awake()
     {
         boxCollider = gameObject.AddComponent<BoxCollider2D>();
@@ -76,6 +81,7 @@ public class GridTile : MonoBehaviour
     public void SetShip()
     {
         status = Status.SHIP;
+        currentColor = shipColor;
         SetColor(shipColor);
     }
 
