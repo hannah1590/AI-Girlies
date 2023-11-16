@@ -71,19 +71,19 @@ public class Player : MonoBehaviour
             {
                 case 0:
                     boat.Add(new Vector2(currentCol, currentRow + i));
-                    BattleShipGame.playerGrid[(currentRow + i) * rows + currentCol].SetShip();
+                    //BattleShipGame.playerGrid[(currentRow + i) * rows + currentCol].SetShip();
                     break;
                 case 1:
                     boat.Add(new Vector2(currentCol + i, currentRow));
-                    BattleShipGame.playerGrid[currentRow * rows + (currentCol + i)].SetShip();
+                    //BattleShipGame.playerGrid[currentRow * rows + (currentCol + i)].SetShip();
                     break;
                 case 2:
                     boat.Add(new Vector2(currentCol, currentRow - i));
-                    BattleShipGame.playerGrid[(currentRow - i) * rows + currentCol].SetShip();
+                    //BattleShipGame.playerGrid[(currentRow - i) * rows + currentCol].SetShip();
                     break;
                 case 3:
-                    BattleShipGame.playerGrid[currentRow * rows + (currentCol - i)].SetShip();
                     boat.Add(new Vector2(currentCol - i, currentRow));
+                    //BattleShipGame.playerGrid[currentRow * rows + (currentCol - i)].SetShip();
                     break;
             }
         }

@@ -13,6 +13,7 @@ public class Mice : MonoBehaviour
     private string tileName;
     Vector3 mousePos;
     Vector3 worldPosition;
+    [SerializeField] GridManager gridManager;
     private void Start()
     {
         player = FindFirstObjectByType<Player>();
@@ -31,8 +32,26 @@ public class Mice : MonoBehaviour
 
         if(isTriggered && Mouse.current.leftButton.wasPressedThisFrame)
         {
+            List<Vector2> boat = new List<Vector2>();
+
             Debug.Log(tileName);
-            player.PlaceBoat(tileName);
+            boat = player.PlaceBoat(tileName);
+            int count = 0;
+            foreach(Vector2 v in boat)
+            {
+                if (v.y >= gridManager.numRows || v.y < 0 || v.x >= gridManager.numColumns || v.x < 0 || BattleShipGame.playerGrid[(int)v.y * gridManager.numRows + (int)v.x].getStatus() != Status.EMPTY)
+                {
+                    Debug.Log("Your boat sucks");
+                    count++;
+                }
+            }
+            if(count == 0)
+            {
+                foreach (Vector2 v in boat)
+                {
+                    BattleShipGame.playerGrid[(int)v.y * gridManager.numRows + (int)v.x].SetShip();
+                }
+            }
             isTriggered = false;
         }
     }
