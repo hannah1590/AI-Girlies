@@ -56,29 +56,29 @@ public class Player : MonoBehaviour
         {
             if(tile.gameObject.name == tileName)
             {
-                currentRow = tile.gridCords.x;
-                currentCol = tile.gridCords.y;
+                currentRow = tile.gridCords.y;
+                currentCol = tile.gridCords.x;
                 Debug.Log(tile.gridCords);
             }
         }
 
-        for(int i = 0; i < shipIndex; i++)
+        for(int i = -shipIndex / 2; i < shipIndex / 2; i++)
         {
             switch(dirIndex)
             {
-                case 1:
+                case 0:
                     boat.Add(new Vector2(currentCol, currentRow + i));
                     BattleShipGame.playerGrid[(currentRow + i) * rows + currentCol].SetShip();
                     break;
-                case 0:
+                case 1:
                     boat.Add(new Vector2(currentCol + i, currentRow));
                     BattleShipGame.playerGrid[currentRow * rows + (currentCol + i)].SetShip();
                     break;
-                case 3:
+                case 2:
                     boat.Add(new Vector2(currentCol, currentRow - i));
                     BattleShipGame.playerGrid[(currentRow - i) * rows + currentCol].SetShip();
                     break;
-                case 2:
+                case 3:
                     BattleShipGame.playerGrid[currentRow * rows + (currentCol - i)].SetShip();
                     boat.Add(new Vector2(currentCol - i, currentRow));
                     break;
