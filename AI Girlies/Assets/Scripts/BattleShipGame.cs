@@ -32,7 +32,7 @@ public class BattleShipGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(turn == Turn.PLAYER && Input.GetMouseButtonDown(0))
         {
             playerTurn.Fire();
         }

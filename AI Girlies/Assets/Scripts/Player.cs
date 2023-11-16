@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private List<Vector2> PlaceBoat(int size)
+    public List<Vector2> PlaceBoat(string tileName)
     {
         int rows = gridManager.numRows;
         int columns = gridManager.numColumns;
@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
                     switch (dir)
                     {
                         case 0:
-                            for (int i = 0; i < size; i++)
+                            for (int i = 0; i < shipIndex; i++)
                             {
                                 if (currentRow + i < rows)
                                 {
@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
                             }
                             break;
                         case 1:
-                            for (int i = 0; i < size; i++)
+                            for (int i = 0; i < shipIndex; i++)
                             {
                                 if (currentCol + i < columns)
                                 {
@@ -101,7 +101,7 @@ public class Player : MonoBehaviour
                             }
                             break;
                         case 2:
-                            for (int i = 0; i < size; i++)
+                            for (int i = 0; i < shipIndex; i++)
                             {
                                 if (currentRow - i >= 0)
                                 {
@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
                             }
                             break;
                         case 3:
-                            for (int i = 0; i < size; i++)
+                            for (int i = 0; i < shipIndex; i++)
                             {
                                 if (currentCol - i >= 0)
                                 {
@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
                             }
                             break;
                     }
-                    if (count == size)
+                    if (count == shipIndex)
                     {
                         dirGood = true;
                         locGood = true;
