@@ -20,7 +20,9 @@ public class GridTile : MonoBehaviour
     private Color shipHover = new Color(44f / 255, 73f / 255, 199f / 255);
 
     private Color hitColor = new Color(219f / 255, 11f / 255, 25f / 255, 255f / 255);
+    private Color hitHover = new Color(194f / 255, 8f / 255, 20f / 255);
     private Color missColor = new Color(125f / 255, 125f / 255, 125f / 255, 255f / 255);
+    private Color missHover = new Color(110f / 255, 101f / 255, 110f / 255, 255f / 255);
 
     public bool isHover;
     [SerializeField] private Status status = Status.EMPTY;
@@ -49,6 +51,18 @@ public class GridTile : MonoBehaviour
                 SetColor(shipHover);
                 currentColor = shipHover;
             }
+            if(currentColor == hitColor)
+            {
+                oldColor = currentColor;
+                SetColor(hitHover);
+                currentColor = hitHover;
+            }
+            if (currentColor == missColor)
+            {
+                oldColor = currentColor;
+                SetColor(missHover);
+                currentColor = missHover;
+            }
         }
     }
 
@@ -61,6 +75,16 @@ public class GridTile : MonoBehaviour
             currentColor = oldColor;
         }
         if (currentColor == shipHover)
+        {
+            SetColor(oldColor);
+            currentColor = oldColor;
+        }
+        if (currentColor == hitHover)
+        {
+            SetColor(oldColor);
+            currentColor = oldColor;
+        }
+        if (currentColor == missHover)
         {
             SetColor(oldColor);
             currentColor = oldColor;
@@ -93,11 +117,13 @@ public class GridTile : MonoBehaviour
         if(t.getStatus() == Status.SHIP)
         {
             t.setStatus(Status.HIT);
+            currentColor = hitColor;
             t.SetColor(hitColor);
         }
         else
         {
             t.setStatus(Status.MISS);
+            currentColor = missColor;
             t.SetColor(missColor);
         }
     }

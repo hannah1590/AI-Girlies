@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BattleShipGame : MonoBehaviour
 {
-    [SerializeField] GridManager gridManager;
-    [SerializeField] AIManager aiManager;
-    [SerializeField] PlayerTurn playerTurn;
+    GridManager gridManager;
+    AIManager aiManager;
+    PlayerTurn playerTurn;
 
     public static GridTile[] playerGrid;
     public GridTile[] aiGrid;
