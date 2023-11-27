@@ -14,6 +14,7 @@ public class Mice : MonoBehaviour
     Vector3 mousePos;
     Vector3 worldPosition;
     [SerializeField] GridManager gridManager;
+    [SerializeField] BattleShipGame game;
     private void Start()
     {
         player = FindFirstObjectByType<Player>();
@@ -32,10 +33,11 @@ public class Mice : MonoBehaviour
 
         if(isTriggered && Mouse.current.leftButton.wasPressedThisFrame)
         {
-            //if(BattleShipGame.getTurn() == Turn.SETUP)
-            //{
-
-            //}
+            if(BattleShipGame.turn == Turn.SETUP)
+            {
+                game.Setup(tileName);
+            }
+            /*
             List<Vector2> boat = new List<Vector2>();
 
             Debug.Log(tileName);
@@ -56,6 +58,7 @@ public class Mice : MonoBehaviour
                     BattleShipGame.playerGrid[(int)v.y * gridManager.numRows + (int)v.x].SetShip();
                 }
             }
+            */
             isTriggered = false;
         }
     }

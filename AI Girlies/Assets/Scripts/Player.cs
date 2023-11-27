@@ -11,11 +11,11 @@ public class Player : MonoBehaviour
     Ray ray;
     RaycastHit2D rayHit;
    [SerializeField] private GridManager gridManager;
-    private GridTile[] shipTwo;
-    private GridTile[] shipThree;
-    private GridTile[] shipThreeTwo;
-    private GridTile[] shipFour;    
-    private GridTile[] shipFive;
+    public List<Vector2> carrier5;
+    public List<Vector2> battleship4;
+    public List<Vector2> crusier3;
+    public List<Vector2> submarine3;
+    public List<Vector2> destroyer2;
     private int[] ships = { 2, 3, 3, 4, 5 };
     private int shipIndex = 4;
     private int dirIndex = 0;
@@ -34,8 +34,9 @@ public class Player : MonoBehaviour
         {
             if (shipIndex < 5 && Input.mouseScrollDelta.y > 0.0f)
                 shipIndex++;
-            if (shipIndex > 0 && Input.mouseScrollDelta.y < 0.0f)
+            if (shipIndex > 2 && Input.mouseScrollDelta.y < 0.0f)
                 shipIndex--;
+            Debug.Log(shipIndex);
         }
         if(Input.GetMouseButtonDown(1)) {
             if (dirIndex < 5)
@@ -65,8 +66,18 @@ public class Player : MonoBehaviour
             }
         }
 
-        for(int i = -shipIndex / 2; i < shipIndex / 2; i++)
+        int limit;
+        if(shipIndex % 2 == 0)
         {
+            limit = 0;
+        }
+        else
+        {
+            limit = 1;
+        }
+        for(int i = -shipIndex / 2; i < (shipIndex + limit) / 2; i++)
+        {
+            Debug.Log(i);
             switch(dirIndex)
             {
                 case 0:
