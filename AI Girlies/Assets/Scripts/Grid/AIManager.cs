@@ -18,7 +18,8 @@ public class AIManager : MonoBehaviour
     public List<Vector2> submarine3;
     public List<Vector2> destroyer2;
 
-    //private 
+    private int[] shipz = { 2, 3, 3, 4, 5 };
+    private int[] probabilityMap;
 
     private void Start()
     {
@@ -30,6 +31,7 @@ public class AIManager : MonoBehaviour
         rows = gridManager.numRows;
         columns = gridManager.numColumns;
 
+        probabilityMap = new int[rows * columns];
         carrier5 = CreateBoat(5);
         battleship4 = CreateBoat(4);
         crusier3 = CreateBoat(3);
@@ -174,7 +176,18 @@ public class AIManager : MonoBehaviour
     }
 
     public void GenerateProbMap()
-    {
+    { 
+        for(int i = 0; i > shipz.Length; i++)
+        {
+            int currentShip = shipz[i];
+            //(currentRow + i) * rows + currentCol
+            for (int x = 0; x <= columns; x++)
+            {
+                for(int y = 0; y <= rows; y++)
+                {
 
+                }
+            }
+        }
     }
 }

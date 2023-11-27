@@ -20,7 +20,7 @@ public class Mice : MonoBehaviour
         gameObject.tag = "MousePosition";
         CircleCollider2D circle =  gameObject.AddComponent<CircleCollider2D>();//.isTrigger = true;
         gameObject.AddComponent<Rigidbody2D>().gravityScale = 0;
-        circle.radius = 0.1f;
+        circle.radius = 0.05f;
     }
 
     void Update()
