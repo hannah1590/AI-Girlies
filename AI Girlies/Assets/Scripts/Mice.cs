@@ -32,6 +32,10 @@ public class Mice : MonoBehaviour
 
         if(isTriggered && Mouse.current.leftButton.wasPressedThisFrame)
         {
+            //if(BattleShipGame.getTurn() == Turn.SETUP)
+            //{
+
+            //}
             List<Vector2> boat = new List<Vector2>();
 
             Debug.Log(tileName);

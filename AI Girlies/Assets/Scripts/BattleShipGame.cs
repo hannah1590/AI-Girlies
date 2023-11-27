@@ -42,7 +42,7 @@ public class BattleShipGame : MonoBehaviour
         }
     }
 
-    private void Setup()
+    public void Setup()
     {
         
     }

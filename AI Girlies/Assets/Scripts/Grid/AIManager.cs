@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class AIManager : MonoBehaviour
 {
-    private GridManager gridManager;
-    private BattleShipGame aiGrid;
+    [SerializeField] private GridManager gridManager;
+    [SerializeField] private BattleShipGame aiGrid;
 
     private int rows;
     private int columns;
@@ -22,8 +22,8 @@ public class AIManager : MonoBehaviour
 
     private void Start()
     {
-        gridManager = FindFirstObjectByType<GridManager>();
-        aiGrid = FindFirstObjectByType<BattleShipGame>();
+        //gridManager = FindFirstObjectByType<GridManager>();
+        //aiGrid = FindFirstObjectByType<BattleShipGame>();
     }
     public void MakeBoard()
     {
