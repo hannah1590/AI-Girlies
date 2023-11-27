@@ -18,6 +18,8 @@ public class AIManager : MonoBehaviour
     public List<Vector2> submarine3;
     public List<Vector2> destroyer2;
 
+    //private 
+
     private void Start()
     {
         gridManager = FindFirstObjectByType<GridManager>();
@@ -159,5 +161,20 @@ public class AIManager : MonoBehaviour
         }
 
         return boat;
+    }
+
+    public void huntMode()
+    {
+
+    }
+
+    public void targetMode(GridTile tile)
+    {
+
+    }
+
+    public void GenerateProbMap()
+    {
+
     }
 }
