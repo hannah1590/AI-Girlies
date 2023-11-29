@@ -61,6 +61,10 @@ public class Mice : MonoBehaviour
             */
             isTriggered = false;
         }
+        else if(isTriggered && BattleShipGame.turn == Turn.SETUP)
+        {
+            player.HighlightBoat(tileName);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -69,6 +73,6 @@ public class Mice : MonoBehaviour
         {
             isTriggered = true;
             tileName = collision.gameObject.name;
-        }    
+        }
     }
 }

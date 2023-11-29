@@ -90,6 +90,32 @@ public class GridTile : MonoBehaviour
             currentColor = oldColor;
         }
     }
+
+    public void ShipHoverSet()
+    {
+        if (currentColor == defaultColor)
+        {
+            oldColor = currentColor;
+            SetColor(shipHover);
+            currentColor = shipHover;
+        }
+        if (currentColor == shipColor)
+        {
+            oldColor = currentColor;
+            SetColor(shipHover);
+            currentColor = shipHover;
+        }
+    }
+
+    public void ShipHoverReset()
+    {
+        if (currentColor == shipHover)
+        {
+            SetColor(oldColor);
+            currentColor = oldColor;
+        }
+    }
+
     private void Awake()
     {
         boxCollider = gameObject.AddComponent<BoxCollider2D>();

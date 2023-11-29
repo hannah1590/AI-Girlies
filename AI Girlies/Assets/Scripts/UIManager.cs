@@ -17,6 +17,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI submarineName;
     [SerializeField] private TextMeshProUGUI destroyerName;
 
+    [SerializeField] private Player player;
+
     // Updates amount of spaces left in boat and turns name red when boat has sunk
     public void UpdateText(string boatName, int count)
     {
@@ -64,6 +66,57 @@ public class UIManager : MonoBehaviour
                 destroyerText.color = Color.red;
                 destroyerName.color = Color.red;
             }
+        }
+    }
+
+    // sets which ship is currently being placed
+    public void ButtonCar()
+    {
+        if (player.carrier5.Count == 0)
+        {
+            player.shipIndex = 5;
+            player.currentBoat = "carrier";
+            player.isPlacing = true;
+        }
+    }
+
+    public void ButtonBattle()
+    {
+        if (player.battleship4.Count == 0)
+        {
+            player.shipIndex = 4;
+            player.currentBoat = "battleship";
+            player.isPlacing = true;
+        }
+    }
+
+    public void ButtonCrusier()
+    {
+        if (player.crusier3.Count == 0)
+        {
+            player.shipIndex = 3;
+            player.currentBoat = "crusier";
+            player.isPlacing = true;
+        }
+    }
+
+    public void ButtonSub()
+    {
+        if (player.submarine3.Count == 0)
+        {
+            player.shipIndex = 3;
+            player.currentBoat = "submarine";
+            player.isPlacing = true;
+        }
+    }
+
+    public void ButtonDest()
+    {
+        if (player.destroyer2.Count == 0)
+        {
+            player.shipIndex = 2;
+            player.currentBoat = "destroyer";
+            player.isPlacing = true;
         }
     }
 }

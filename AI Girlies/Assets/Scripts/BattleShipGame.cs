@@ -57,28 +57,33 @@ public class BattleShipGame : MonoBehaviour
         boat = player.PlaceBoat(tileName);
         int count = 0;
 
+        // checks if boat has already been placed
         switch(boat.Count)
         {
             case 2:
-                if(player.destroyer2.Count != 0)
+                if(player.destroyer2.Count != 0 && player.currentBoat == "destroyer")
                 {
                     count++;
                 }
                 break;
             case 3:
-                if (player.crusier3.Count != 0 && player.submarine3.Count != 0)
+                if (player.crusier3.Count != 0 && player.currentBoat == "crusier")
+                {
+                    count++;
+                }
+                if(player.submarine3.Count != 0 && player.currentBoat == "submarine")
                 {
                     count++;
                 }
                 break;
             case 4:
-                if (player.battleship4.Count != 0)
+                if (player.battleship4.Count != 0 && player.currentBoat == "battleship")
                 {
                     count++;
                 }
                 break;
             case 5:
-                if (player.carrier5.Count != 0)
+                if (player.carrier5.Count != 0 && player.currentBoat == "carrier")
                 {
                     count++;
                 }
@@ -87,6 +92,7 @@ public class BattleShipGame : MonoBehaviour
 
         if (count == 0)
         {
+            // checks if boat is in bounds
             foreach (Vector2 v in boat)
             {
                 if (v.y >= gridManager.numRows || v.y < 0 || v.x >= gridManager.numColumns || v.x < 0 || BattleShipGame.playerGrid[(int)v.y * gridManager.numRows + (int)v.x].getStatus() != Status.EMPTY)
@@ -96,34 +102,35 @@ public class BattleShipGame : MonoBehaviour
                 }
             }
         }
+
+        // if boat has not already been placed and is in bounds then add it to the correct player boat
         if (count == 0)
         {
+            if(player.currentBoat == "carrier")
+            {
+                player.carrier5 = boat;
+            }
+            else if(player.currentBoat == "battleship")
+            {
+                player.battleship4 = boat;
+            }
+            else if(player.currentBoat == "crusier")
+            {
+                player.crusier3 = boat;
+            }
+            else if(player.currentBoat == "submarine")
+            {
+                player.submarine3 = boat;
+            }
+            else if(player.currentBoat == "destroyer")
+            {
+                player.destroyer2 = boat;
+            }
             foreach (Vector2 v in boat)
             {
-                BattleShipGame.playerGrid[(int)v.y * gridManager.numRows + (int)v.x].SetShip();
-                switch (boat.Count)
-                {
-                    case 2:
-                        player.destroyer2 = boat;
-                        break;
-                    case 3:
-                        if (player.crusier3.Count == 0)
-                        {
-                            player.crusier3 = boat;
-                        }
-                        else
-                        {
-                            player.submarine3 = boat;
-                        }
-                        break;
-                    case 4:
-                        player.battleship4 = boat;
-                        break;
-                    case 5:
-                        player.carrier5 = boat;
-                        break;
-                }
-            }
+                playerGrid[(int)v.y * gridManager.numRows + (int)v.x].SetShip();
+            } 
+            player.isPlacing = false;
         }
     }
 }
