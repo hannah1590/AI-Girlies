@@ -27,25 +27,18 @@ public class BattleShipGame : MonoBehaviour
         aiManager.MakeBoard();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (turn == Turn.SETUP)
-        {
-
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
         if(turn == Turn.PLAYER && Input.GetMouseButtonDown(0))
         {
             playerTurn.Fire();
+            turn = Turn.AI;
         }
-        else if(turn == Turn.SETUP && Input.GetMouseButtonDown(0))
+        else if(turn == Turn.AI)
         {
-
+            //ai shoot
+            turn = Turn.PLAYER;
         }
     }
 
@@ -106,6 +99,7 @@ public class BattleShipGame : MonoBehaviour
         // if boat has not already been placed and is in bounds then add it to the correct player boat
         if (count == 0)
         {
+            turn = Turn.PLAYER;
             if(player.currentBoat == "carrier")
             {
                 player.carrier5 = boat;
