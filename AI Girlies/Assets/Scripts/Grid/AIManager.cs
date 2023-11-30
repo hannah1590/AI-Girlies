@@ -200,7 +200,7 @@ public class AIManager : MonoBehaviour
                                 {
                                     for(int j = 0; j < currentShip; j++)
                                     {
-                                        probabilityMap[x * rows + (y)] += 1;
+                                        probabilityMap[x * rows + (y + j)] += 1;
                                     }
                                     
                                 }
@@ -210,7 +210,7 @@ public class AIManager : MonoBehaviour
                                 {
                                     for (int j = 0; j < currentShip; j++)
                                     {
-                                        probabilityMap[(x) * rows + y] += 1;
+                                        probabilityMap[(x + j) * rows + y] += 1;
                                     }
                                     //probabilityMap[x * rows + y] += 1;
                                 }
@@ -220,7 +220,7 @@ public class AIManager : MonoBehaviour
                                 {
                                     for (int j = 0; j < currentShip; j++)
                                     {
-                                        probabilityMap[x * rows + (y)] += 1;
+                                        probabilityMap[x * rows + (y - j)] += 1;
                                     }
                                     //probabilityMap[x * rows + y] += 1;
                                 }
@@ -230,7 +230,7 @@ public class AIManager : MonoBehaviour
                                 {
                                     for (int j = 0; j < currentShip; j++)
                                     {
-                                        probabilityMap[(x) * rows + y] += 1;
+                                        probabilityMap[(x - j) * rows + y] += 1;
                                     }
                                     //probabilityMap[x * rows + y] += 1;
                                 }
@@ -240,5 +240,7 @@ public class AIManager : MonoBehaviour
                 }
             }
         }
+
+
     }
 }
