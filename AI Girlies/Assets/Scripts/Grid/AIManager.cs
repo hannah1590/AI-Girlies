@@ -171,11 +171,15 @@ public class AIManager : MonoBehaviour
     public void Shoot()
     {
         GridTile tile = new GridTile();
+        int tileNum = 0;
 
         if(mode == Mode.HUNT) { 
-            huntMode();
+            tileNum = huntMode();
         }
         else { targetMode(); }
+
+        tile = BattleShipGame.playerGrid[tileNum];
+        tile.Fire(tile);
     }
 
     public int huntMode()
