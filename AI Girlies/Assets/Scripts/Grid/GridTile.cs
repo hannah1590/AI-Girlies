@@ -27,6 +27,8 @@ public class GridTile : MonoBehaviour
     public bool isHover;
     [SerializeField] private Status status = Status.EMPTY;
 
+    public int propability = 0;
+
     private void Start()
     {
         this.gameObject.tag = "Tile";

@@ -7,7 +7,7 @@ using UnityEngine;
 public class AIManager : MonoBehaviour
 {
     [SerializeField] private GridManager gridManager;
-    [SerializeField] private BattleShipGame aiGrid;
+    [SerializeField] private BattleShipGame battleShipGame;
 
     private int rows;
     private int columns;
@@ -55,10 +55,10 @@ public class AIManager : MonoBehaviour
         do
         {
             loc = Random.Range(0, rows * columns);
-            currentRow = aiGrid.aiGrid[loc].gridCords.x;
-            currentCol = aiGrid.aiGrid[loc].gridCords.y;
+            currentRow = battleShipGame.aiGrid[loc].gridCords.x;
+            currentCol = battleShipGame.aiGrid[loc].gridCords.y;
 
-            if (aiGrid.aiGrid[loc].getStatus() == Status.EMPTY)
+            if (battleShipGame.aiGrid[loc].getStatus() == Status.EMPTY)
             {
                 do
                 {
@@ -77,7 +77,7 @@ public class AIManager : MonoBehaviour
                             {
                                 if(currentRow + i < rows)
                                 {
-                                    if(aiGrid.aiGrid[(currentRow + i) * rows + currentCol].getStatus() == Status.EMPTY)
+                                    if(battleShipGame.aiGrid[(currentRow + i) * rows + currentCol].getStatus() == Status.EMPTY)
                                     {
                                         count++;
                                     }
@@ -89,7 +89,7 @@ public class AIManager : MonoBehaviour
                             {
                                 if (currentCol + i < columns)
                                 {
-                                    if (aiGrid.aiGrid[currentRow * rows + (currentCol + i)].getStatus() == Status.EMPTY)
+                                    if (battleShipGame.aiGrid[currentRow * rows + (currentCol + i)].getStatus() == Status.EMPTY)
                                     {
                                         count++;
                                     }
@@ -101,7 +101,7 @@ public class AIManager : MonoBehaviour
                             {
                                 if (currentRow - i >= 0)
                                 {
-                                    if (aiGrid.aiGrid[(currentRow - i) * rows + currentCol].getStatus() == Status.EMPTY)
+                                    if (battleShipGame.aiGrid[(currentRow - i) * rows + currentCol].getStatus() == Status.EMPTY)
                                     {
                                         count++;
                                     }
@@ -113,7 +113,7 @@ public class AIManager : MonoBehaviour
                             {
                                 if (currentCol - i >= 0)
                                 {
-                                    if (aiGrid.aiGrid[currentRow * rows + (currentCol - i)].getStatus() == Status.EMPTY)
+                                    if (battleShipGame.aiGrid[currentRow * rows + (currentCol - i)].getStatus() == Status.EMPTY)
                                     {
                                         count++;
                                     }
@@ -145,19 +145,19 @@ public class AIManager : MonoBehaviour
             {
                 case 0:
                     boat.Add(new Vector2(currentCol, currentRow + i));
-                    aiGrid.aiGrid[(currentRow + i) * rows + currentCol].SetShip();
+                    battleShipGame.aiGrid[(currentRow + i) * rows + currentCol].SetShip();
                     break;
                 case 1:
                     boat.Add(new Vector2(currentCol + i, currentRow));
-                    aiGrid.aiGrid[currentRow * rows + (currentCol + i)].SetShip();
+                    battleShipGame.aiGrid[currentRow * rows + (currentCol + i)].SetShip();
                     break;
                 case 2:
                     boat.Add(new Vector2(currentCol, currentRow - i));
-                    aiGrid.aiGrid[(currentRow - i) * rows + currentCol].SetShip();
+                    battleShipGame.aiGrid[(currentRow - i) * rows + currentCol].SetShip();
                     break;
                 case 3:
                     boat.Add(new Vector2(currentCol - i, currentRow));
-                    aiGrid.aiGrid[currentRow * rows + (currentCol - i)].SetShip();
+                    battleShipGame.aiGrid[currentRow * rows + (currentCol - i)].SetShip();
                     break;
             }
         }
@@ -189,7 +189,7 @@ public class AIManager : MonoBehaviour
             //(currentRow + i) * rows + currentCol
             for (int x = 0; x < columns; x++)
             {
-                for(int y = 0; y < rows; y++)
+                for (int y = 0; y < rows; y++)
                 {
                     for (int dir = 0; dir < 4; dir++)
                     {
@@ -198,11 +198,11 @@ public class AIManager : MonoBehaviour
                             case 0: // North
                                 if (y + currentShip < gridManager.numRows)
                                 {
-                                    for(int j = 0; j < currentShip; j++)
+                                    for (int j = 0; j < currentShip; j++)
                                     {
                                         probabilityMap[x * rows + (y + j)] += 1;
+                                        BattleShipGame.playerGrid[x * rows + (y + j)].propability += 1;
                                     }
-                                    
                                 }
                                 break;
                             case 1: // East
@@ -211,8 +211,8 @@ public class AIManager : MonoBehaviour
                                     for (int j = 0; j < currentShip; j++)
                                     {
                                         probabilityMap[(x + j) * rows + y] += 1;
+                                        BattleShipGame.playerGrid[(x + j) * rows + y].propability += 1;
                                     }
-                                    //probabilityMap[x * rows + y] += 1;
                                 }
                                 break;
                             case 2: // South
@@ -221,8 +221,8 @@ public class AIManager : MonoBehaviour
                                     for (int j = 0; j < currentShip; j++)
                                     {
                                         probabilityMap[x * rows + (y - j)] += 1;
+                                        BattleShipGame.playerGrid[x * rows + (y - j)].propability += 1;
                                     }
-                                    //probabilityMap[x * rows + y] += 1;
                                 }
                                 break;
                             case 3: // West
@@ -231,8 +231,8 @@ public class AIManager : MonoBehaviour
                                     for (int j = 0; j < currentShip; j++)
                                     {
                                         probabilityMap[(x - j) * rows + y] += 1;
+                                        BattleShipGame.playerGrid[(x - j) * rows + y].propability += 1;
                                     }
-                                    //probabilityMap[x * rows + y] += 1;
                                 }
                                 break;
                         }
@@ -240,7 +240,5 @@ public class AIManager : MonoBehaviour
                 }
             }
         }
-
-
     }
 }

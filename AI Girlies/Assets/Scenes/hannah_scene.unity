@@ -199,12 +199,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridManager: {fileID: 801722683}
-  aiGrid: {fileID: 801722685}
+  battleShipGame: {fileID: 801722685}
   carrier5: []
   battleship4: []
   crusier3: []
   submarine3: []
   destroyer2: []
+  probabilityMap: 
 --- !u!4 &79357858
 Transform:
   m_ObjectHideFlags: 0
@@ -357,7 +358,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridManager: {fileID: 801722683}
-  player: {fileID: 0}
   carrier5: []
   battleship4: []
   crusier3: []
@@ -365,6 +365,8 @@ MonoBehaviour:
   destroyer2: []
   shipIndex: 0
   currentBoat: 
+  dirIndex: 0
+  isPlacing: 0
 --- !u!4 &151366155
 Transform:
   m_ObjectHideFlags: 0
