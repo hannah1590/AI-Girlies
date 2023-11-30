@@ -100,7 +100,6 @@ public class BattleShipGame : MonoBehaviour
         // if boat has not already been placed and is in bounds then add it to the correct player boat
         if (count == 0)
         {
-            turn = Turn.PLAYER;
             if(player.currentBoat == "carrier")
             {
                 player.carrier5 = boat;
@@ -126,6 +125,32 @@ public class BattleShipGame : MonoBehaviour
                 playerGrid[(int)v.y * gridManager.numRows + (int)v.x].SetShip();
             } 
             player.isPlacing = false;
+        }
+
+        int amountOfShips = 0;
+        if (player.destroyer2.Count != 0)
+        {
+            amountOfShips++;
+        }
+        if (player.crusier3.Count != 0)
+        {
+            amountOfShips++;
+        }
+        if (player.submarine3.Count != 0)
+        {
+            amountOfShips++;
+        }
+        if (player.battleship4.Count != 0)
+        {
+            amountOfShips++;
+        }
+        if (player.carrier5.Count != 0)
+        {
+            amountOfShips++;
+        }
+        if(amountOfShips == 5)
+        {
+            turn = Turn.PLAYER;
         }
     }
 }
