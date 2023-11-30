@@ -38,6 +38,7 @@ public class BattleShipGame : MonoBehaviour
         else if(turn == Turn.AI)
         {
             //ai shoot
+            aiManager.GenerateProbMap();
             turn = Turn.PLAYER;
         }
     }

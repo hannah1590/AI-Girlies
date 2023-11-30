@@ -19,7 +19,7 @@ public class AIManager : MonoBehaviour
     public List<Vector2> destroyer2;
 
     private int[] shipz = { 2, 3, 3, 4, 5 };
-    private int[] probabilityMap;
+    [SerializeField] private int[] probabilityMap;
 
     private void Start()
     {
@@ -176,16 +176,67 @@ public class AIManager : MonoBehaviour
     }
 
     public void GenerateProbMap()
-    { 
-        for(int i = 0; i > shipz.Length; i++)
+    {
+        for (int i = 0; i < rows * columns; i++)
+        {
+            probabilityMap[i] = 0;
+        }
+
+        for (int i = 0; i < shipz.Length; i++)
         {
             int currentShip = shipz[i];
-            //(currentRow + i) * rows + currentCol
-            for (int x = 0; x <= columns; x++)
-            {
-                for(int y = 0; y <= rows; y++)
-                {
 
+            //(currentRow + i) * rows + currentCol
+            for (int x = 0; x < columns; x++)
+            {
+                for(int y = 0; y < rows; y++)
+                {
+                    for (int dir = 0; dir < 4; dir++)
+                    {
+                        switch (dir)
+                        {
+                            case 0: // North
+                                if (y + currentShip < gridManager.numRows)
+                                {
+                                    for(int j = 0; j < currentShip; j++)
+                                    {
+                                        probabilityMap[x * rows + (y)] += 1;
+                                    }
+                                    
+                                }
+                                break;
+                            case 1: // East
+                                if (x + currentShip < gridManager.numColumns)
+                                {
+                                    for (int j = 0; j < currentShip; j++)
+                                    {
+                                        probabilityMap[(x) * rows + y] += 1;
+                                    }
+                                    //probabilityMap[x * rows + y] += 1;
+                                }
+                                break;
+                            case 2: // South
+                                if (y - currentShip >= 0)
+                                {
+                                    for (int j = 0; j < currentShip; j++)
+                                    {
+                                        probabilityMap[x * rows + (y)] += 1;
+                                    }
+                                    //probabilityMap[x * rows + y] += 1;
+                                }
+                                break;
+                            case 3: // West
+                                if (x - currentShip >= 0)
+                                {
+                                    for (int j = 0; j < currentShip; j++)
+                                    {
+                                        probabilityMap[(x) * rows + y] += 1;
+                                    }
+                                    //probabilityMap[x * rows + y] += 1;
+                                }
+                                break;
+                        }
+                    }
                 }
             }
         }
