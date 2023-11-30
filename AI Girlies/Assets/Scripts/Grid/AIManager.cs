@@ -200,6 +200,8 @@ public class AIManager : MonoBehaviour
 
         if (list.Count > 1)
             final = Random.RandomRange(0, list.Count);
+        else
+            final = list[0];
         return final;
     }
 
