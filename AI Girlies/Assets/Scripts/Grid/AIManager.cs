@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class AIManager : MonoBehaviour
@@ -18,6 +20,7 @@ public class AIManager : MonoBehaviour
     public List<Vector2> submarine3;
     public List<Vector2> destroyer2;
 
+    private Mode mode = Mode.HUNT;
     private int[] shipz = { 2, 3, 3, 4, 5 };
     [SerializeField] private int[] probabilityMap;
 
@@ -165,12 +168,42 @@ public class AIManager : MonoBehaviour
         return boat;
     }
 
-    public void huntMode()
+    public void Shoot()
     {
+        GridTile tile = new GridTile();
 
+        if(mode == Mode.HUNT) { 
+            huntMode();
+        }
+        else { targetMode(); }
     }
 
-    public void targetMode(GridTile tile)
+    public int huntMode()
+    {
+        GenerateProbMap();
+        List<int> list = new List<int>();
+        int biggest = 0;
+        int final = 0;
+        for (int i = 0; i < probabilityMap.Length; i++)
+        {
+            if (probabilityMap[i] > biggest)
+            {
+                list.Clear();
+                biggest = probabilityMap[i];
+                list.Add(i);
+            }
+            if (probabilityMap[i] == biggest)
+            {
+                list.Add(i);
+            }
+        }
+
+        if (list.Count > 1)
+            final = Random.RandomRange(0, list.Count);
+        return final;
+    }
+
+    public void targetMode()
     {
 
     }
@@ -186,7 +219,6 @@ public class AIManager : MonoBehaviour
         {
             int currentShip = shipz[i];
 
-            //(currentRow + i) * rows + currentCol
             for (int x = 0; x < columns; x++)
             {
                 for (int y = 0; y < rows; y++)
@@ -241,4 +273,9 @@ public class AIManager : MonoBehaviour
             }
         }
     }
+}
+public enum Mode
+{
+    HUNT,
+    TARGET
 }
