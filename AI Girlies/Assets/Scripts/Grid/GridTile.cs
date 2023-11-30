@@ -27,7 +27,7 @@ public class GridTile : MonoBehaviour
     public bool isHover;
     [SerializeField] private Status status = Status.EMPTY;
 
-    public int propability = 0;
+    public int probability = 0;
 
     private void Start()
     {

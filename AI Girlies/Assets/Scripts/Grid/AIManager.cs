@@ -201,7 +201,7 @@ public class AIManager : MonoBehaviour
                                     for (int j = 0; j < currentShip; j++)
                                     {
                                         probabilityMap[x * rows + (y + j)] += 1;
-                                        BattleShipGame.playerGrid[x * rows + (y + j)].propability += 1;
+                                        BattleShipGame.playerGrid[x * rows + (y + j)].probability += 1;
                                     }
                                 }
                                 break;
@@ -211,7 +211,7 @@ public class AIManager : MonoBehaviour
                                     for (int j = 0; j < currentShip; j++)
                                     {
                                         probabilityMap[(x + j) * rows + y] += 1;
-                                        BattleShipGame.playerGrid[(x + j) * rows + y].propability += 1;
+                                        BattleShipGame.playerGrid[(x + j) * rows + y].probability += 1;
                                     }
                                 }
                                 break;
@@ -221,7 +221,7 @@ public class AIManager : MonoBehaviour
                                     for (int j = 0; j < currentShip; j++)
                                     {
                                         probabilityMap[x * rows + (y - j)] += 1;
-                                        BattleShipGame.playerGrid[x * rows + (y - j)].propability += 1;
+                                        BattleShipGame.playerGrid[x * rows + (y - j)].probability += 1;
                                     }
                                 }
                                 break;
@@ -231,7 +231,7 @@ public class AIManager : MonoBehaviour
                                     for (int j = 0; j < currentShip; j++)
                                     {
                                         probabilityMap[(x - j) * rows + y] += 1;
-                                        BattleShipGame.playerGrid[(x - j) * rows + y].propability += 1;
+                                        BattleShipGame.playerGrid[(x - j) * rows + y].probability += 1;
                                     }
                                 }
                                 break;
