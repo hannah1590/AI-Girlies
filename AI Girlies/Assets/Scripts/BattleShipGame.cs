@@ -38,6 +38,7 @@ public class BattleShipGame : MonoBehaviour
         else if(turn == Turn.AI)
         {
             //ai shoot
+            
             aiManager.GenerateProbMap();
             aiManager.Shoot();
             turn = Turn.PLAYER;
@@ -48,7 +49,7 @@ public class BattleShipGame : MonoBehaviour
     {
         List<Vector2> boat = new List<Vector2>();
 
-        Debug.Log(tileName);
+        //Debug.Log(tileName);
         boat = player.PlaceBoat(tileName);
         int count = 0;
 

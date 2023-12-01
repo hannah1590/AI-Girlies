@@ -520,12 +520,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridManager: {fileID: 157256774}
-  aiGrid: {fileID: 157256773}
+  battleShipGame: {fileID: 157256773}
   carrier5: []
   battleship4: []
   crusier3: []
   submarine3: []
   destroyer2: []
+  probabilityMap: 
 --- !u!114 &157256777
 MonoBehaviour:
   m_ObjectHideFlags: 0

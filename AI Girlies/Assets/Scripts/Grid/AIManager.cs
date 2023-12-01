@@ -186,7 +186,7 @@ public class AIManager : MonoBehaviour
     {
         GenerateProbMap();
         List<int> list = new List<int>();
-        int biggest = 0;
+        int biggest = -1;
         int final = 0;
         for (int i = 0; i < probabilityMap.Length; i++)
         {
@@ -196,16 +196,25 @@ public class AIManager : MonoBehaviour
                 biggest = probabilityMap[i];
                 list.Add(i);
             }
-            if (probabilityMap[i] == biggest)
+            else if (probabilityMap[i] == biggest)
             {
                 list.Add(i);
             }
         }
 
         if (list.Count > 1)
-            final = Random.RandomRange(0, list.Count);
+        {
+            int range = Random.RandomRange(0, list.Count);
+            final = list[range];
+        }
         else
+        {
+            
             final = list[0];
+
+        }
+        changeMap(final, -1);
+        BattleShipGame.playerGrid[final].probability = -1;
         return final;
     }
 
@@ -214,11 +223,31 @@ public class AIManager : MonoBehaviour
 
     }
 
+    private bool alreadyShot(int place)
+    {
+        if (probabilityMap[place] == -1)
+            return true;
+        return false;
+    }
+
+    private void changeMap(int place, int num) //Put -2 into num if you just want to add one to the prexisting value
+    {
+        if (num == -2)
+            probabilityMap[place] += 1;
+        else
+            probabilityMap[place] = num;
+    }
+
     public void GenerateProbMap()
     {
         for (int i = 0; i < rows * columns; i++)
         {
-            probabilityMap[i] = 0;
+            if (!alreadyShot(i))
+            {
+                changeMap(i, 0);
+                //probabilityMap[i] = 0;
+                BattleShipGame.playerGrid[i].probability = 0;
+            }
         }
 
         for (int i = 0; i < shipz.Length; i++)
@@ -236,40 +265,94 @@ public class AIManager : MonoBehaviour
                             case 0: // North
                                 if (y + currentShip < gridManager.numRows)
                                 {
+                                    bool isShot = false;
                                     for (int j = 0; j < currentShip; j++)
                                     {
-                                        probabilityMap[x * rows + (y + j)] += 1;
-                                        BattleShipGame.playerGrid[x * rows + (y + j)].probability += 1;
+                                        if (alreadyShot(x * rows + (y + j)))
+                                        {
+                                            Debug.Log("EEE");
+                                            isShot = true;
+                                            break;
+                                        }
                                     }
+                                    if(!isShot)
+                                    {
+                                        for (int j = 0; j < currentShip; j++)
+                                        {
+                                            changeMap(x * rows + (y + j), -2);
+                                            //probabilityMap[x * rows + (y + j)] += 1;
+                                            BattleShipGame.playerGrid[x * rows + (y + j)].probability += 1;
+                                        }
+                                        isShot = false;
+                                    }   
                                 }
                                 break;
                             case 1: // East
                                 if (x + currentShip < gridManager.numColumns)
                                 {
+                                    bool isShot = false;
                                     for (int j = 0; j < currentShip; j++)
                                     {
-                                        probabilityMap[(x + j) * rows + y] += 1;
-                                        BattleShipGame.playerGrid[(x + j) * rows + y].probability += 1;
+                                        if (alreadyShot((x + j) * rows + y))
+                                        {
+                                            isShot = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!isShot)
+                                    {
+                                        for (int j = 0; j < currentShip; j++)
+                                        {
+                                            changeMap((x + j) * rows + y, -2);
+                                            BattleShipGame.playerGrid[(x + j) * rows + y].probability += 1;
+                                        }
+                                        isShot = false;
                                     }
                                 }
                                 break;
                             case 2: // South
                                 if (y - currentShip >= 0)
                                 {
+                                    bool isShot = false;
                                     for (int j = 0; j < currentShip; j++)
                                     {
-                                        probabilityMap[x * rows + (y - j)] += 1;
-                                        BattleShipGame.playerGrid[x * rows + (y - j)].probability += 1;
+                                        if (alreadyShot(x * rows + (y - j)))
+                                        {
+                                            isShot = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!isShot)
+                                    {
+                                        for (int j = 0; j < currentShip; j++)
+                                        {
+                                            changeMap(x * rows + (y - j), -2);
+                                            BattleShipGame.playerGrid[x * rows + (y - j)].probability += 1;
+                                        }
+                                        isShot = false;
                                     }
                                 }
                                 break;
                             case 3: // West
                                 if (x - currentShip >= 0)
                                 {
+                                    bool isShot = false;
                                     for (int j = 0; j < currentShip; j++)
                                     {
-                                        probabilityMap[(x - j) * rows + y] += 1;
-                                        BattleShipGame.playerGrid[(x - j) * rows + y].probability += 1;
+                                        if (alreadyShot((x - j) * rows + y))
+                                        {
+                                            isShot = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!isShot)
+                                    {
+                                        for (int j = 0; j < currentShip; j++)
+                                        {
+                                            changeMap((x - j) * rows + y, -2);
+                                            BattleShipGame.playerGrid[(x - j) * rows + y].probability += 1;
+                                        }
+                                        isShot = false;
                                     }
                                 }
                                 break;
