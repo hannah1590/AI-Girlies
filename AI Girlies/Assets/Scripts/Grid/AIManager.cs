@@ -39,6 +39,7 @@ public class AIManager : MonoBehaviour
     }
     public void MakeBoard()
     {
+        targetStack = new Stack<int>();
         rows = gridManager.numRows;
         columns = gridManager.numColumns;
 
@@ -186,7 +187,7 @@ public class AIManager : MonoBehaviour
             tileNum = huntMode();
         }
         else { 
-            tileNum = targetMode(tileNum); 
+            tileNum = targetMode(tileNum, hit); 
         }
 
         tile = BattleShipGame.playerGrid[tileNum];
@@ -247,7 +248,7 @@ public class AIManager : MonoBehaviour
                         {
                             if (destroyer2Shot == 2 || destroyer2Shot == 0)
                             {
-                                mode = Mode.TARGET;
+                                mode = Mode.HUNT;
                             }
                         }
                     }
@@ -292,11 +293,16 @@ public class AIManager : MonoBehaviour
         return final;
     }
 
-    public int targetMode(int tile)
+    public int targetMode(int tile, bool hit)
     {
-        GenerateTargetMap(tile);
-        int temp = targetStack.Pop();
-        return temp;
+        if(hit)
+            GenerateTargetMap(tile);
+        if(targetStack.Count > 0)
+        {
+            int temp = targetStack.Pop();
+            return temp;
+        }
+        return 0;
     }
 
     private bool alreadyShot(int place)
@@ -326,36 +332,37 @@ public class AIManager : MonoBehaviour
                 BattleShipGame.playerGrid[i].probability = 0;
             }
         }
-           for (int dir = 0; dir < 4; dir++)
-           {
-               switch (dir)
-               {
-                   case 0: // North
-                       if (!alreadyShot(x * rows + (y + 1)))
-                       {
-                           targetStack.Push(x * rows + (y + 1));
-                       }
-                       break;
-                   case 1: // East
-                       if (!alreadyShot((x + 1) * rows + y))
-                       {
-                           targetStack.Push((x + 1) * rows + y);
-                       }
-                       break;
-                   case 2: // South
-                       if (!alreadyShot(x * rows + (y - 1)))
-                       {
-                           targetStack.Push(x * rows + (y - 1));
-                       }
-                       break;
-                   case 3: // West
-                       if (!alreadyShot((x - 1) * rows + y))
-                       {
-                           targetStack.Push((x - 1) * rows + y);
-                       }
-                       break;
-               }
-           }
+        Debug.Log("EEEE");
+        for (int dir = 0; dir < 4; dir++)
+        {
+            switch (dir)
+            {
+                case 0: // North
+                    if (!alreadyShot(x * rows + (y + 1)))
+                    {
+                        targetStack.Push(x * rows + (y + 1));
+                    }
+                    break;
+                case 1: // East
+                    if (!alreadyShot((x + 1) * rows + y))
+                    {
+                        targetStack.Push((x + 1) * rows + y);
+                    }
+                    break;
+                case 2: // South
+                    if (!alreadyShot(x * rows + (y - 1)))
+                    {
+                        targetStack.Push(x * rows + (y - 1));
+                    }
+                    break;
+                case 3: // West
+                    if (!alreadyShot((x - 1) * rows + y))
+                    {
+                        targetStack.Push((x - 1) * rows + y);
+                    }
+                    break;
+            }
+        }
     }
 
     public void GenerateProbMap()

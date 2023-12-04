@@ -468,6 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiGrid: []
+  didPlayerFire: 0
 --- !u!114 &157256774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,6 +522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridManager: {fileID: 157256774}
   battleShipGame: {fileID: 157256773}
+  player: {fileID: 157256775}
   carrier5: []
   battleship4: []
   crusier3: []
