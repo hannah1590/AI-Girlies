@@ -177,12 +177,18 @@ public class AIManager : MonoBehaviour
         if(mode == Mode.HUNT) { 
             tileNum = huntMode();
         }
-        else { targetMode(); }
+        else { 
+            targetMode(); 
+        }
 
         tile = BattleShipGame.playerGrid[tileNum];
         hit = tile.Fire(tile);
         if (hit)
+        {
             mode = Mode.TARGET;
+            changeMap(tileNum, -3);
+            BattleShipGame.playerGrid[tileNum].probability = -3;
+        }
     }
 
     public int huntMode()
