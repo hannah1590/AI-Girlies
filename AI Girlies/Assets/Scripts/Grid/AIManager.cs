@@ -30,7 +30,7 @@ public class AIManager : MonoBehaviour
     private Mode mode = Mode.HUNT;
     private int[] shipz = { 2, 3, 3, 4, 5 };
     [SerializeField] private int[] probabilityMap;
-    private Stack targetStack;
+    private Stack<int> targetStack;
 
     private void Start()
     {
@@ -186,7 +186,7 @@ public class AIManager : MonoBehaviour
             tileNum = huntMode();
         }
         else { 
-            targetMode(tileNum); 
+            tileNum = targetMode(tileNum); 
         }
 
         tile = BattleShipGame.playerGrid[tileNum];
@@ -292,9 +292,11 @@ public class AIManager : MonoBehaviour
         return final;
     }
 
-    public void targetMode(int tile)
+    public int targetMode(int tile)
     {
         GenerateTargetMap(tile);
+        int temp = targetStack.Pop();
+        return temp;
     }
 
     private bool alreadyShot(int place)
@@ -314,6 +316,8 @@ public class AIManager : MonoBehaviour
 
     public void GenerateTargetMap(int tile)
     {
+        int x = BattleShipGame.playerGrid[tile].gridCords.x;
+        int y = BattleShipGame.playerGrid[tile].gridCords.y;
         for (int i = 0; i < rows * columns; i++)
         {
             if (!alreadyShot(i))
@@ -322,42 +326,36 @@ public class AIManager : MonoBehaviour
                 BattleShipGame.playerGrid[i].probability = 0;
             }
         }
-        for (int i = 0; i < shipz.Length; i++)
-        {
-           int currentShip = shipz[i];
            for (int dir = 0; dir < 4; dir++)
            {
                switch (dir)
                {
                    case 0: // North
-                       if (y + currentShip < gridManager.numRows && !alreadyShot(x * rows + (y + 1)))
+                       if (!alreadyShot(x * rows + (y + 1)))
                        {
                            targetStack.Push(x * rows + (y + 1));
                        }
                        break;
                    case 1: // East
-                       if (x + currentShip < gridManager.numColumns && !alreadyShot((x + 1) * rows + y))
+                       if (!alreadyShot((x + 1) * rows + y))
                        {
                            targetStack.Push((x + 1) * rows + y);
                        }
                        break;
                    case 2: // South
-                       if (y - currentShip >= 0 && !alreadyShot(x * rows + (y - 1)))
+                       if (!alreadyShot(x * rows + (y - 1)))
                        {
                            targetStack.Push(x * rows + (y - 1));
                        }
                        break;
                    case 3: // West
-                       if (x - currentShip >= 0 && !alreadyShot((x - 1) * rows + y))
+                       if (!alreadyShot((x - 1) * rows + y))
                        {
                            targetStack.Push((x - 1) * rows + y);
                        }
                        break;
                }
            }
-         
-         
-        }
     }
 
     public void GenerateProbMap()
