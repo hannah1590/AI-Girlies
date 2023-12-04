@@ -10,6 +10,7 @@ public class AIManager : MonoBehaviour
 {
     [SerializeField] private GridManager gridManager;
     [SerializeField] private BattleShipGame battleShipGame;
+    [SerializeField] private Player player;
 
     private int rows;
     private int columns;
@@ -19,6 +20,12 @@ public class AIManager : MonoBehaviour
     public List<Vector2> crusier3;
     public List<Vector2> submarine3;
     public List<Vector2> destroyer2;
+
+    private int carrier5Shot = 0;
+    private int battleship4Shot = 0;
+    private int crusier3Shot = 0;
+    private int submarine3Shot = 0;
+    private int destroyer2Shot = 0;
 
     private Mode mode = Mode.HUNT;
     private int[] shipz = { 2, 3, 3, 4, 5 };
@@ -189,7 +196,64 @@ public class AIManager : MonoBehaviour
             mode = Mode.TARGET;
             changeMap(tileNum, -3);
             BattleShipGame.playerGrid[tileNum].probability = -3;
-        }
+            if (player.carrier5.Contains(tile.gridCords))
+            {
+                carrier5Shot++;
+                if(carrier5Shot == 5)
+                {
+                    shipz[4] = 0;
+                }
+            }
+            if (player.battleship4.Contains(tile.gridCords))
+            {
+                battleship4Shot++;
+                if (battleship4Shot == 4)
+                {
+                    shipz[3] = 0;
+                }
+            }
+            if (player.crusier3.Contains(tile.gridCords))
+            {
+                crusier3Shot++;
+                if (crusier3Shot == 3)
+                {
+                    shipz[2] = 0;
+                }
+            }
+            if (player.submarine3.Contains(tile.gridCords))
+            {
+                submarine3Shot++;
+                if (submarine3Shot == 3)
+                {
+                    shipz[1] = 0;
+                }
+            }
+            if (player.destroyer2.Contains(tile.gridCords))
+            {
+                destroyer2Shot++;
+                if (destroyer2Shot == 2)
+                {
+                    shipz[0] = 0;
+                }
+            }
+
+            if(carrier5Shot == 5 || carrier5Shot == 0)
+            {
+                if (battleship4Shot == 4 || battleship4Shot == 0)
+                {
+                    if (crusier3Shot == 3 || crusier3Shot == 0)
+                    {
+                        if (submarine3Shot == 3 || submarine3Shot == 0)
+                        {
+                            if (destroyer2Shot == 2 || destroyer2Shot == 0)
+                            {
+                                mode = Mode.TARGET;
+                            }
+                        }
+                    }
+                }
+            }
+        }       
     }
 
     public int huntMode()
