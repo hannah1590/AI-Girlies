@@ -170,6 +170,7 @@ public class AIManager : MonoBehaviour
 
     public void Shoot()
     {
+        bool hit = false;
         GridTile tile = new GridTile();
         int tileNum = 0;
 
@@ -179,7 +180,9 @@ public class AIManager : MonoBehaviour
         else { targetMode(); }
 
         tile = BattleShipGame.playerGrid[tileNum];
-        tile.Fire(tile);
+        hit = tile.Fire(tile);
+        if (hit)
+            mode = Mode.TARGET;
     }
 
     public int huntMode()
@@ -220,7 +223,7 @@ public class AIManager : MonoBehaviour
 
     public void targetMode()
     {
-
+        GenerateTargetMap();
     }
 
     private bool alreadyShot(int place)
@@ -238,6 +241,19 @@ public class AIManager : MonoBehaviour
             probabilityMap[place] = num;
     }
 
+    public void GenerateTargetMap()
+    {
+        for (int i = 0; i < rows * columns; i++)
+        {
+            if (!alreadyShot(i))
+            {
+                changeMap(i, 0);
+                BattleShipGame.playerGrid[i].probability = 0;
+            }
+        }
+
+    }
+
     public void GenerateProbMap()
     {
         for (int i = 0; i < rows * columns; i++)
@@ -245,7 +261,6 @@ public class AIManager : MonoBehaviour
             if (!alreadyShot(i))
             {
                 changeMap(i, 0);
-                //probabilityMap[i] = 0;
                 BattleShipGame.playerGrid[i].probability = 0;
             }
         }
@@ -270,7 +285,6 @@ public class AIManager : MonoBehaviour
                                     {
                                         if (alreadyShot(x * rows + (y + j)))
                                         {
-                                            Debug.Log("EEE");
                                             isShot = true;
                                             break;
                                         }
@@ -280,7 +294,6 @@ public class AIManager : MonoBehaviour
                                         for (int j = 0; j < currentShip; j++)
                                         {
                                             changeMap(x * rows + (y + j), -2);
-                                            //probabilityMap[x * rows + (y + j)] += 1;
                                             BattleShipGame.playerGrid[x * rows + (y + j)].probability += 1;
                                         }
                                         isShot = false;

@@ -140,19 +140,21 @@ public class GridTile : MonoBehaviour
     //Resets the color of the tile to empty tile color. Used for reseting the game
     public void ResetColor() { spriteRenderer.color = defaultColor; }
 
-    public void Fire(GridTile t)
+    public bool Fire(GridTile t)
     {
         if(t.getStatus() == Status.SHIP)
         {
             t.setStatus(Status.HIT);
             currentColor = hitColor;
             t.SetColor(hitColor);
+            return true;
         }
         else
         {
             t.setStatus(Status.MISS);
             currentColor = missColor;
             t.SetColor(missColor);
+            return false;
         }
     }
 }
