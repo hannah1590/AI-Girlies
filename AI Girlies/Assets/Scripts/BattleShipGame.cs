@@ -13,6 +13,7 @@ public class BattleShipGame : MonoBehaviour
     public static GridTile[] playerGrid;
     public GridTile[] aiGrid;
     public static Turn turn = Turn.SETUP;
+    public bool didPlayerFire = false;
 
     private void Awake()
     {
@@ -33,7 +34,10 @@ public class BattleShipGame : MonoBehaviour
         if(turn == Turn.PLAYER && Input.GetMouseButtonDown(0))
         {
             playerTurn.Fire();
-            turn = Turn.AI;
+            if(didPlayerFire)
+            {
+                turn = Turn.AI;
+            }
         }
         else if(turn == Turn.AI)
         {
