@@ -324,6 +324,7 @@ public class AIManager : MonoBehaviour
     {
         int x = BattleShipGame.playerGrid[tile].gridCords.x;
         int y = BattleShipGame.playerGrid[tile].gridCords.y;
+
         for (int i = 0; i < rows * columns; i++)
         {
             if (!alreadyShot(i))
@@ -332,7 +333,6 @@ public class AIManager : MonoBehaviour
                 BattleShipGame.playerGrid[i].probability = 0;
             }
         }
-        Debug.Log("EEEE");
         for (int dir = 0; dir < 4; dir++)
         {
             switch (dir)
