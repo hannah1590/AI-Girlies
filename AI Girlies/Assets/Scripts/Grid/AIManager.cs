@@ -31,6 +31,7 @@ public class AIManager : MonoBehaviour
     private int[] shipz = { 2, 3, 3, 4, 5 };
     [SerializeField] private int[] probabilityMap;
     private Stack<int> targetStack;
+    private GridTile[] tempGrid;
 
     private void Start()
     {
@@ -49,6 +50,20 @@ public class AIManager : MonoBehaviour
         crusier3 = CreateBoat(3);
         submarine3 = CreateBoat(3);
         destroyer2 = CreateBoat(2);
+    }
+
+    public void CreateColorGrid()
+    {
+        tempGrid = gridManager.InitalizeGrid(new Vector2(20, -14));
+        for(int x = 0; x < columns; x++)
+        {
+            for(int y = 0; y < rows; y++)
+            {
+                float z = probabilityMap[x * rows + y];
+                Color color = new Color(z / 255, z / 255, z / 255);
+                tempGrid[x * rows + y].SetColor(color);
+            }
+        }
     }
 
     private List<Vector2> CreateBoat(int size)
