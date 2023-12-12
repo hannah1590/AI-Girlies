@@ -27,8 +27,8 @@ public class AIManager : MonoBehaviour
     private int submarine3Shot = 0;
     private int destroyer2Shot = 0;
 
-    private Mode mode = Mode.HUNT;
-    private int[] shipz = { 2, 3, 3, 4, 5 };
+    [SerializeField] private Mode mode = Mode.HUNT;
+    [SerializeField] private int[] shipz = { 2, 3, 3, 4, 5 };
     [SerializeField] private int[] probabilityMap;
     private Stack<int> targetStack;
     private GridTile[] tempGrid;
@@ -54,13 +54,13 @@ public class AIManager : MonoBehaviour
 
     public void CreateColorGrid()
     {
-        tempGrid = gridManager.InitalizeGrid(new Vector2(20, -14));
+        tempGrid = gridManager.InitalizeGrid(new Vector2(20, -15));
         for(int x = 0; x < columns; x++)
         {
             for(int y = 0; y < rows; y++)
             {
                 float z = probabilityMap[x * rows + y];
-                Color color = new Color(z / 255, z / 255, z / 255);
+                Color color = new Color((z * 20 + 20) / 255, (z * 20 + 20) / 255, (z * 20 + 20) / 255);
                 tempGrid[x * rows + y].SetColor(color);
             }
         }
@@ -198,13 +198,12 @@ public class AIManager : MonoBehaviour
         GridTile tile = new GridTile();
         int tileNum = 0;
 
-        if(mode == Mode.HUNT) { 
+        if (mode == Mode.HUNT) { 
             tileNum = huntMode();
         }
         else { 
             tileNum = targetMode(tileNum, hit); 
         }
-
         tile = BattleShipGame.playerGrid[tileNum];
         hit = tile.Fire(tile);
         if (hit)
@@ -310,19 +309,52 @@ public class AIManager : MonoBehaviour
 
     public int targetMode(int tile, bool hit)
     {
-        if(hit)
-            GenerateTargetMap(tile);
+        //if(hit)
+        GenerateTargetMap(tile);
+        /*
         if(targetStack.Count > 0)
         {
             int temp = targetStack.Pop();
             return temp;
         }
         return 0;
+        */
+        List<int> list = new List<int>();
+        int biggest = -1;
+        int final = 0;
+        for (int i = 0; i < probabilityMap.Length; i++)
+        {
+            if (probabilityMap[i] > biggest)
+            {
+                list.Clear();
+                biggest = probabilityMap[i];
+                list.Add(i);
+            }
+            else if (probabilityMap[i] == biggest)
+            {
+                list.Add(i);
+            }
+        }
+
+        if (list.Count > 1)
+        {
+            int range = Random.RandomRange(0, list.Count);
+            final = list[range];
+        }
+        else
+        {
+
+            final = list[0];
+
+        }
+        changeMap(final, -1);
+        BattleShipGame.playerGrid[final].probability = -1;
+        return final;
     }
 
     private bool alreadyShot(int place)
     {
-        if (probabilityMap[place] == -1 || probabilityMap[place] == -3)
+        if (BattleShipGame.playerGrid[place].getStatus() == Status.HIT || BattleShipGame.playerGrid[place].getStatus() == Status.MISS)
             return true;
         return false;
     }
@@ -337,8 +369,9 @@ public class AIManager : MonoBehaviour
 
     public void GenerateTargetMap(int tile)
     {
-        int x = BattleShipGame.playerGrid[tile].gridCords.x;
-        int y = BattleShipGame.playerGrid[tile].gridCords.y;
+        List<Vector2Int> hits = new List<Vector2Int>();
+        int x = BattleShipGame.playerGrid[tile].gridCords.y;
+        int y = BattleShipGame.playerGrid[tile].gridCords.x;
 
         for (int i = 0; i < rows * columns; i++)
         {
@@ -347,37 +380,85 @@ public class AIManager : MonoBehaviour
                 changeMap(i, 0);
                 BattleShipGame.playerGrid[i].probability = 0;
             }
-        }
-        for (int dir = 0; dir < 4; dir++)
-        {
-            switch (dir)
+            else
             {
-                case 0: // North
-                    if (!alreadyShot(x * rows + (y + 1)))
-                    {
-                        targetStack.Push(x * rows + (y + 1));
-                    }
-                    break;
-                case 1: // East
-                    if (!alreadyShot((x + 1) * rows + y))
-                    {
-                        targetStack.Push((x + 1) * rows + y);
-                    }
-                    break;
-                case 2: // South
-                    if (!alreadyShot(x * rows + (y - 1)))
-                    {
-                        targetStack.Push(x * rows + (y - 1));
-                    }
-                    break;
-                case 3: // West
-                    if (!alreadyShot((x - 1) * rows + y))
-                    {
-                        targetStack.Push((x - 1) * rows + y);
-                    }
-                    break;
+                if(BattleShipGame.playerGrid[i].getStatus() == Status.HIT)
+                {
+                    // adds to hit list if it is one of the ships that has not sunk
+                    if(player.carrier5.Contains(BattleShipGame.playerGrid[i].gridCords) && carrier5Shot != 5)
+                        hits.Add(BattleShipGame.playerGrid[i].gridCords);
+                    if (player.battleship4.Contains(BattleShipGame.playerGrid[i].gridCords) && battleship4Shot != 4)
+                        hits.Add(BattleShipGame.playerGrid[i].gridCords);
+                    if (player.crusier3.Contains(BattleShipGame.playerGrid[i].gridCords) && crusier3Shot != 3)
+                        hits.Add(BattleShipGame.playerGrid[i].gridCords);
+                    if (player.submarine3.Contains(BattleShipGame.playerGrid[i].gridCords) && submarine3Shot != 3)
+                        hits.Add(BattleShipGame.playerGrid[i].gridCords);
+                    if (player.destroyer2.Contains(BattleShipGame.playerGrid[i].gridCords) && destroyer2Shot != 2)
+                        hits.Add(BattleShipGame.playerGrid[i].gridCords);
+                }
             }
         }
+
+        for(int i = 0; i < shipz.Length; i++)
+        {
+            int currentShip = shipz[i];
+
+            for (int j = 0; j < currentShip; j++)
+            {
+                for (int k = 0; k < hits.Count; k++)
+                {
+                    x = hits[k].y;
+                    y = hits[k].x;
+                    for (int dir = 0; dir < 4; dir++)
+                    {
+                        switch (dir)
+                        {
+                            case 0: // North
+                                if (y + j < rows)
+                                {
+                                    if (!alreadyShot(x * rows + (y + j)))
+                                    {
+                                        changeMap(x * rows + (y + j), -2);
+                                        BattleShipGame.playerGrid[x * rows + (y + j)].probability += 1;
+                                    }
+                                }
+                                break;
+                            case 1: // East
+                                if (x + j < columns)
+                                {
+                                    if (!alreadyShot((x + j) * rows + y))
+                                    {
+                                        changeMap((x + j) * rows + y, -2);
+                                        BattleShipGame.playerGrid[(x + j) * rows + y].probability += 1;
+                                    }
+                                }
+                                break;
+                            case 2: // South
+                                if (y - j >= 0)
+                                {
+                                    if (!alreadyShot(x * rows + (y - j)))
+                                    {
+                                        changeMap(x * rows + (y - j), -2);
+                                        BattleShipGame.playerGrid[x * rows + (y - j)].probability += 1;
+                                    }
+                                }
+                                break;
+                            case 3: // West
+                                if (x - j >= 0)
+                                {
+                                    if (!alreadyShot((x - j) * rows + y))
+                                    {
+                                        changeMap((x - j) * rows + y, -2);
+                                        BattleShipGame.playerGrid[(x - j) * rows + y].probability += 1;
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+        CreateColorGrid();
     }
 
     public void GenerateProbMap()

@@ -43,7 +43,7 @@ public class BattleShipGame : MonoBehaviour
         {
             //ai shoot
             
-            aiManager.GenerateProbMap();
+            //aiManager.GenerateProbMap();
             aiManager.Shoot();
             turn = Turn.PLAYER;
         }
