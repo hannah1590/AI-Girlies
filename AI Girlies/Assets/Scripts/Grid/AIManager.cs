@@ -458,11 +458,12 @@ public class AIManager : MonoBehaviour
                 }
             }
         }
-        CreateColorGrid();
+        //CreateColorGrid();
     }
 
     public void GenerateProbMap()
     {
+        //CreateColorGrid();
         for (int i = 0; i < rows * columns; i++)
         {
             if (!alreadyShot(i))
@@ -575,6 +576,7 @@ public class AIManager : MonoBehaviour
                                         isShot = false;
                                     }
                                 }
+                                
                                 break;
                         }
                     }
